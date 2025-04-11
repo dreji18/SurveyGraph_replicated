@@ -4,6 +4,8 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from src.make_synthetic_data import make_synthetic_data
 from src.make_projection import make_projection
+import matplotlib.cm as cm
+import numpy as np
 
 st.set_page_config(page_title="Synthetic Graph Generator")
 
@@ -26,6 +28,8 @@ with st.sidebar:
     threshold_method = st.selectbox("Threshold Method", ["target_lcc", "target_ad", "raw_similarity"], index=0)
     method_value = st.slider("Method Value", 0.0, 1.0, 0.99)
     centre = st.checkbox("Centre data", value=True)
+    
+    st.info("This is the Python implementation for SurveyPackage originally written in R and C++.. To read more about SurveyGraph package: https://surveygraph.ie/")
 
 # Main logic block
 try:
@@ -55,20 +59,32 @@ try:
 
         # Layout and plotting
         pos = nx.spring_layout(g1, seed=42)
-
+        
+        # Extract group information for each node
+        groups = nx.get_node_attributes(g1, 'group')
+        group_ids = list(set(groups.values()))
+        group_to_color = {group: i for i, group in enumerate(sorted(group_ids))}
+        
+        # Normalize group values to colormap
+        color_map = cm.get_cmap('tab10', len(group_ids))  # You can try 'tab10', 'Accent', etc.
+        node_colors = [color_map(group_to_color[groups[node]]) for node in g1.nodes()]
+        
+        # Optionally vary node size based on degree
+        node_sizes = [50 + 30 * g1.degree(node) for node in g1.nodes()]  # scalable sizes
+        
+        # Create plot
         fig, ax = plt.subplots(figsize=(8, 6))
         nx.draw(
             g1, pos,
             with_labels=False,
-            node_size=25,
-            width=0.3,
-            edge_color='gray',
-            node_color='skyblue',
-            alpha=0.6,
+            node_size=node_sizes,
+            width=0.5,
+            edge_color='lightgray',
+            node_color=node_colors,
+            alpha=0.9,
             ax=ax
         )
-
-        ax.set_title(f"{layer.capitalize()} Layer")
+        
         st.pyplot(fig)
 
 except Exception as e:

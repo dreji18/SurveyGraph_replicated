@@ -20,6 +20,8 @@ elif data_option == "Polarized":
 else:
     sample_data = create_immigration_attitude_data()
 
+st.sidebar.info("This is the implementation for Quayle's 2020 Network theory of attitude model which is based on the paper: https://www.researchgate.net/publication/339917203_A_performative_network_theory_of_attitudes")
+
 # Build the network
 for person, attitudes in sample_data.items():
     network.add_person(person, attitudes)
