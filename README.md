@@ -1,5 +1,5 @@
 # SurveyGraph
-This is the Python implementation for SurveyPackage, originally written in R and C++. I have also added the implementation for Quayle's 2020 Network theory of attitude model along with it.
+This is the Python implementation for SurveyPackage, originally written in R and C++. I have also added the implementation for Quayle's 2020 Network theory of attitude model along with it based on this paper: https://www.researchgate.net/publication/339917203_A_performative_network_theory_of_attitudes
 
 link to the Python Implemented app with added Quayle's network theory of attitudes model:  https://attitude-simulation.streamlit.app/
 ![Screenshot Synethtic Attitude Network](https://github.com/user-attachments/assets/daf28bf1-1c3e-440f-ad30-891a3e3c66bb)
