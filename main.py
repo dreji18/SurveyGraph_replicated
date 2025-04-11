@@ -1,5 +1,3 @@
-# D:\Personal Projects\quayle\surveygraphp
-
 from src.make_synthetic_data import make_synthetic_data
 from src.make_projection import make_projection
 from src.graph_from_data_frame import graph_from_data_frame
